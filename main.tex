@@ -5,7 +5,7 @@
 
 \title{$M^3$: An Open Model for Measuring Code Artifacts}
 
-\author{Ashim Shahi, Anastasia Izmaylova, Paul Klint and Jurgen Vinju}
+\author{ Anastasia Izmaylova, Paul Klint, Ashim Shahi and Jurgen Vinju}
 
 \date{}
 
@@ -28,7 +28,7 @@ The main challenge that our part of the design, which focuses on code, faces is 
 \caption{An overview: from code to metrics and visuals via M3 models.}
 \end{figure}
 
-The context of \mthree\ is the Rascal meta-programming language\footnote{\url{http://www.rascal-mpl.org}}. This is a domain specific language specifically designed to include primitives we need to model any programming language syntax and semantics, and to analyze and manipulate these models. Three essential design elements for the purpose of this paper is that Rascal has value semantics for every data point, including sets and relations, it has support for URI literals, called ``source locations'', and it has term rewriting and relational calculus primitives to deal with hierarchical and relational data, respectively. This includes generic traversal and pattern matching primitives as well as relational operators such as transitive closure and comprehensions. \mthree$\!\!\!\!$,~ from a technical stand-point is a set of Rascal data-types.
+The context of \mthree\ is the Rascal meta-programming language\footnote{\url{http://www.rascal-mpl.org}}. This is a domain specific language specifically designed to include primitives we need to model any programming language syntax and semantics, and to analyze and manipulate these models. Three essential design elements for the purpose of this paper are that Rascal has value semantics for all in-memory data, including sets and relations, it has support for URI literals, called ``source locations'', and it has term rewriting and relational calculus primitives to deal with hierarchical and relational data, respectively. This includes generic traversal and pattern matching primitives as well as relational operators such as transitive closure and comprehensions. 
 
 Caveat emptor. The reader should be aware that we do \emph{not} intend to create a unified model for programming language semantics. Such a language independent model would be inaccurate (wrong), and deliver meaningless metrics. Instead we opt for a unified \emph{form} for storing facts about programs. This means that all models will have a predictable shape, but we do not assume any reusability of metrics or visuals producers between models produced by different parsers. 
 
@@ -42,7 +42,7 @@ M3 is, like all Rascal data, fully typed and fully serializable as readable text
 
 \subsection{Locations} 
 
-With any analysis traceability of the output back to the input is important for verifying the correctness of the results or for explaining them. For example, when we present the largest class in a project, we need the size as well as a link to the source code of this class. In other words, want to link information back to source code for all derived facts we produce. From the semantic web we take the idea of using URI (Uniform Resource Identifiers) to model the identity of any artifact. Each URI takes the following shape: \loc{|<scheme>://<auth>/<path>?<qry>|(<off>,<len>)}.
+To verify the correctness of metrics or for explaining them we want to trace back measurements to code. For example, when we present the largest class in a project, we need the size as well as a link to the source code of this class. In other words, want to link information back to source code for all derived facts we produce. From the semantic web we take the idea of using URI (Uniform Resource Identifiers) to model the identity of any artifact. Each URI takes the following shape: \loc{|<scheme>://<auth>/<path>?<qry>|(<off>,<len>)}.
 
 We distinguish between two kinds of code locations: physical and logical. A \emph{physical} location identifies a storage location. Physical locations may be absolute or relative. Examples of absolute physical locations are \loc{|file:///tmp/Hello.java|} and \loc{|http://foo.com/index.html|}, and \loc{|project://MyPrj/Hello.java|} is a relative location. It is always the \emph{scheme} of a URI that defines to which root a URI is relative. In the case of \texttt{project}, it is an Eclipse project in the current workspace, in the case of \texttt{cwd} it is the current working directory. The set of physical schemes is open and extensible. We have schemes for Eclipse projects, Java class resources, OSGI bundle resources, JDBC data sources, jar files, etc.
 
